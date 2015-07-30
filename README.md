@@ -1,2 +1,1 @@
-# azpstools
-Azure Powershell Tools
+https://github.com/sedau/azpstools/wiki
