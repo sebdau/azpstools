@@ -46,7 +46,7 @@ function RecoverVM ()
     $recoveryVM | Add-AzureDataDisk -Import -DiskName $vm.VM.OSVirtualHardDisk.DiskName  -LUN 0 | Update-AzureVM 
         
 
-    return $vm.VM.OSVirtualHardDisk.DiskName
+    return $vm
 }
 
 Function IsAdmin
@@ -87,7 +87,7 @@ Function InstallWinRMCertificateForVM()
 	Remove-Item $certTempFile
 }
 
-function FixDisk()
+function FixDisk([Parameter(Mandatory=$true)][string] $RecoveryVMName)
 {    
     $secPassword = ConvertTo-SecureString  $RecoveryPW -AsPlainText -Force
     $credential = New-Object System.Management.Automation.PSCredential($RecoveryAdmin, $secPassword)
@@ -205,11 +205,15 @@ Do
     Write-Host '3 - Recreate the faulty VM using the OS disk'
     Write-Host '0 - EXIT (CTRL+C)'
     $Option = Read-Host
-    $osDiskName = 'sebdauvs15RTM-RC1509011502-0-201509011308130580'
+    
     switch ($Option)
     {
-        '1' { $osDiskName = RecoverVM }
-        '2' { FixDisk }
+        '1' { 
+                $rvm = RecoverVM
+                $osDiskName = $rvm.VM.OSVirtualHardDisk.DiskName 
+                $recoveryVmName = $rvm.Name
+            }
+        '2' { FixDisk -RecoveryVMName $recoveryVmName }
         '3' {
             if ( ! $osDiskName )
                 {
