@@ -100,14 +100,17 @@ forEach ( $partitionGroup in $partitionlist | group DiskNumber )
         $defaultId = '{'+$defaultLine.ToString().Split('{}')[1] + '}'
         
         bcdedit /store $bcdPath /default $defaultId
-        bcdedit /store $bcdPath /set $defaultId  recoveryenabled Off        bcdedit /store $bcdPath /set $defaultId  bootstatuspolicy IgnoreAllFailures
+        bcdedit /store $bcdPath /set $defaultId  recoveryenabled Off
+        bcdedit /store $bcdPath /set $defaultId  bootstatuspolicy IgnoreAllFailures
 
         #setting os device does not support multiple recovery disks attached at the same time right now (as default will be overwritten each iteration)
         $isDeviceUnknown= bcdedit /store $bcdPath /enum osloader | Select-String 'device' | Select-String 'unknown'
         
         if ($isDeviceUnknown)
         {
-            bcdedit /store $bcdPath /set $defaultId device partition=$osDrive             bcdedit /store $bcdPath /set $defaultId osdevice partition=$osDrive         }
+            bcdedit /store $bcdPath /set $defaultId device partition=$osDrive 
+            bcdedit /store $bcdPath /set $defaultId osdevice partition=$osDrive 
+        }
               
 
         #load reg to make sure system regback contains data
@@ -115,8 +118,8 @@ forEach ( $partitionGroup in $partitionlist | group DiskNumber )
         If($RegBackup.Length -ne 0)
 		{
             Write-Output '#06 - restoring registry on ' $osDrive 
-			move $osDrive\windows\system32\config\system $osDrive\windows\system32\config\system_org
-	        copy $osDrive\windows\system32\config\Regback\system $osDrive\windows\system32\config\system
+			move $osDrive\windows\system32\config\system $osDrive\windows\system32\config\system_org -Force
+	                copy $osDrive\windows\system32\config\Regback\system $osDrive\windows\system32\config\system -Force
 		}
         
     }      
