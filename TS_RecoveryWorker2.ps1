@@ -25,7 +25,7 @@ forEach ( $partition in $partitionlist )
     If ($dirtyFlag -notmatch "NOT Dirty")
     {
         Write-Output '02 - ' + $driveLetter + ' dirty bit set  -> running chkdsk'
-        chkdisk $driveLetter /f
+        chkdsk $driveLetter /f
     }
     else
     {
