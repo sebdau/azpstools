@@ -19,6 +19,6 @@ $procIds += Get-Process | where name -In $procNames | select -ExpandProperty Id
 
 foreach ( $procId in $procIds ) 
 {    
-    .\procdump.exe -accepteula  -ma  $procId    
+    .\procdump.exe -accepteula -o -ma  $procId    
 }
 
