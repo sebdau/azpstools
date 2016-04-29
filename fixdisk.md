@@ -1,6 +1,6 @@
-*Purpose / overview
-*Current version
-*Scenarios 
+-Purpose / overview
+-Current version
+-Scenarios 
   *when would you use the script?
 •	Any execution guidance needed 
 o	Parameters or input
