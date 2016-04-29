@@ -12,7 +12,7 @@ In such cases it is a common practice to:
 
 # Current version supports
 - run chkdsk do fix file system corruptions
-- run sfc to replace invaid system files
+- run sfc to replace invalid system files
 - reconfigure boot configuration (bcdedit) (supports multi partion layouts)
 - collect a list of invalid system files that were not recovered and writes it to c:\WindowsAzure\Logs\ChkDsk-SysReg.log on the recovery VM
 
