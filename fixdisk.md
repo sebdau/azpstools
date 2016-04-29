@@ -7,6 +7,9 @@ In such cases it is a common practice to:
 - Run the script https://github.com/sedau/azpstools/blob/master/TS_RecoveryWorker2.ps1 as an elevated administrator from the recovery VM
 - Detach the disk and recreate the original VM based on the recovered disk
 
+> the full details are explained in this blog post:
+> https://blogs.msdn.microsoft.com/mast/2014/11/20/recover-azure-vm-by-attaching-os-disk-to-another-azure-vm/
+
 # Current version supports
 - run chkdsk do fix file system corruptions
 - run sfc to replace invaid system files
