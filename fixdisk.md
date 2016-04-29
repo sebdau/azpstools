@@ -22,10 +22,10 @@ In such cases it is a common practice to:
 The script must be executed from a windows vm that has a data disk attached) with elevated previleges 
 
 ## Parameters or input
-NONE
+- NONE
 
 # Support platforms / dependencies  (for example)
 
-##  Needs PowerShell
-##  Needs a particular version of Windows (2008 - 2012R2)
+- Needs PowerShell
+- Needs a particular version of Windows (2008 - 2012R2)
 
