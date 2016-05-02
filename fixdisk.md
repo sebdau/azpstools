@@ -1,13 +1,13 @@
-# Purpose / overview
-Occationally Azure IaaS VMs may not start because there is something wrong with the OS disk so that it does not boot up correctly.
-In such cases it is a common practice to:
+# Overview
+Occasionally Azure IaaS VMs may not start because there is something wrong with the operating system (OS) disk preventing it from booting up correctly.
+In such cases it is a common practice to recover the problem VM by performing the following steps:
 
 - Delete the VM (but keep the disks)
 - Attach the disk(s) to another bootable VM as a Data Disk
 - Run the script https://github.com/sedau/azpstools/blob/master/TS_RecoveryWorker2.ps1 as an elevated administrator from the recovery VM
-- Detach the disk and recreate the original VM based on the recovered disk
+- Detach the disk and recreate the original VM using the recovered operating system disk
 
-> the full details are explained in this blog post:
+> the full details on this recovery process are explained in this blog post:
 > https://blogs.msdn.microsoft.com/mast/2014/11/20/recover-azure-vm-by-attaching-os-disk-to-another-azure-vm/
 
 # Current version supports
@@ -18,17 +18,18 @@ In such cases it is a common practice to:
 
 # Scenarios
 
-##  when would you use the script?
-- Azure Windows VM does not boot (VM screen shot does not show login screen but boot issue)
+##  When would you use the script?
+If a Windows VM in Azure does not boot. Typically in this scenario VM screenshot from [boot diagnostics] (https://azure.microsoft.com/en-us/blog/boot-diagnostics-for-virtual-machines-v2/) does not show login screen but a boot issue.
 
-# Any execution guidance needed 
-The script must be executed from a windows vm that has a data disk attached) with elevated previleges 
+# Execution guidance
+The script must be executed with elevated previleges from a working Windows VM that has a data disk attached.  
 
 ## Parameters or input
 - NONE
 
-# Support platforms / dependencies  (for example)
+# Supported Platforms / Dependencies
+The VM running the recovery script must:
+- be running Windows 2008 - 2012R2
+- have PowerShell installed
 
-- Needs PowerShell
-- Needs a particular version of Windows (2008 - 2012R2)
 
