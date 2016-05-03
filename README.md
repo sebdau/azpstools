@@ -1,1 +1,1 @@
-this repository has moved to https://github.com/sebdau/azpstools
+This repository has moved to https://github.com/sebdau/azpstools
