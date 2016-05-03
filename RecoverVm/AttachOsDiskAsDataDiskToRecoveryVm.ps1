@@ -15,6 +15,7 @@
         return
     }
 
+    #https://github.com/Azure/azure-powershell/pull/2050 bug
     #export vm cfg to temp dir for later exact recreation (disk,net settings)
     $VMExportPath = $env:TEMP + '\' + $vm.VM.OSVirtualHardDisk.DiskName + '.xml'
 
