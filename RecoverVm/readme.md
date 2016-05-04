@@ -22,7 +22,12 @@ If a Windows VM in Azure does not boot. Typically in this scenario VM screenshot
 # Execution guidance
 - download and extract the entire project folder https://github.com/sebdau/azpstools/archive/master.zip to c:\azscripts\ (or custom)
 - Or pull it using git client github-windows://openRepo/https://github.com/sebdau/azpstools
-- Open Azure Powershell and and execute c:\azscripts\RecoverVM\RecoverVM.ps1 MYCLOUDSERVICENAME MYVMNAME
+- Open Azure Powershell and and execute 
+
+```PowerShell
+c:\azscripts\RecoverVM\RecoverVM.ps1 MYCLOUDSERVICENAME MYVMNAME
+```
+
 - follow the instructions and be patient (it may take between 15mins and multiple hours [if disk repair takes long])
 
 ## Parameters or input
