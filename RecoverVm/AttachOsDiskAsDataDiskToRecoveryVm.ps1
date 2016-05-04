@@ -1,4 +1,4 @@
-﻿function AttachOsDiskAsDataDiskToRecoveryVm (
+﻿function AttachOsDiskAsDataDiskToRecoveryVm   (
     [string] $ServiceName , 
     [string] $VName ,    
     [string] $RecoveryAdmin = 'recoveryAdmin',
@@ -48,9 +48,11 @@
     #once the recovery vm has booted in the same cloud service (to prevent VIP loss) we get rid of the defect vm (but keep disks)
     Remove-AzureVm -ServiceName $ServiceName -Name $VMName 
 
-    #now we need to wait for a few secs until the os disk was released
-    Write-Host "Waiting 2mins for Azure to release the disk"
-    Start-Sleep -Seconds 120 | Out-Null
+    Write-Output "Waiting for the disk  to be released" + $vm.VM.OSVirtualHardDisk.DiskName
+    do
+    {
+        Start-Sleep -Seconds 15 | Out-Null
+    }while ( (get-azuredisk $vm.VM.OSVirtualHardDisk.DiskName | select -ExpandProperty AttachedTo ) -ne $null)
 
     #than we try to add the 
     $recoveryVM = Get-AzureVM -ServiceName $ServiceName -Name $RecoveryVMName

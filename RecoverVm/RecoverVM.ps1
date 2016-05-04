@@ -10,16 +10,18 @@ if ( ! $Sub )
     return
 }
 
-. $PSScriptRoot\AttachOsDiskAsDataDiskToRecoveryVm.ps1
-. $PSScriptRoot\RecreateVmFromVhd.ps1
-. $PSScriptRoot\RunRepairDataDiskFromRecoveryVm.ps1
+. $PSScriptRoot\AttachOsDiskAsDataDiskToRecoveryVm.ps1 
+. $PSScriptRoot\RecreateVmFromVhd.ps1 
+. $PSScriptRoot\RunRepairDataDiskFromRecoveryVm.ps1 
 
 
-$recoVM = AttachOsDiskAsDataDiskToRecoveryVm $ServiceName $VMName
+$results = AttachOsDiskAsDataDiskToRecoveryVm $ServiceName $VMName
 
-RunRepairDataDiskFromRecoveryVm $ServiceName $recoVM.Name
+RunRepairDataDiskFromRecoveryVm $ServiceName ($results[$results.count -1].RoleName)
 
 RecreateVmFromVhd $ServiceName $VMName  $true
+
+
 
 
 

@@ -1,4 +1,4 @@
-﻿function RecreateVmFromVhd(
+﻿function RecreateVmFromVhd (
     [string] $ServiceName,
     [string] $RecoVmName,
     [bool] $DeleteRecoVM
@@ -7,6 +7,12 @@
     
     $attachedVm = Get-AzureVM -ServiceName $ServiceName -Name $RecoVmName
     $location = (Get-AzureService -ServiceName $ServiceName).Location
+    if ( $attachedVm.VM.DataVirtualHardDisks.Count -eq 0 )
+    {
+        Write-Error "No data disk attached to recover vm $RecoVmName unable to procede!"
+        return
+    }
+
     $OSDisk = $attachedVm.VM.DataVirtualHardDisks[0]
 
     #get storage account name from current data disk url
