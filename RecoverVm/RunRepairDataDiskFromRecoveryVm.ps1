@@ -10,12 +10,7 @@
     $VM = get-azurevm $ServiceName  $RecoVmName
 
     if ( $VM.VM.OSVirtualHardDisk.OS -eq "Windows")
-    {
-        $csex = $vm |Get-AzureVMCustomScriptExtension
-        if ( $csex) 
-        {
-            $temp = $vm |Remove-AzureVMCustomScriptExtension | Update-AzureVM
-        }
+    {     
 
         $temp = $vm | Set-AzureVMCustomScriptExtension -FileUri $GuestRecoveryScriptUri  -Run $GuestRecoveryScript | Update-AzureVM 
         
@@ -32,32 +27,24 @@
             }
             elseif ( ($csStatus.Status -eq 'Ready') -or ($csStatus.Status -eq 'Success'))
             {
-                $exit = $true
-                $outMsg = $csStatus.SubStatusList | where Name -EQ 'StdOut' | select -ExpandProperty FormattedMessage | select -ExpandProperty Message
-                $outMsg = [System.Web.HttpUtility]::HtmlDecode($outMsg)
-                $outMsg = $outMsg -replace "\\n","`n"
-                if ( $outMsg -ne $lastOutput)
-                {
-                    Write-Warning "Current output from recovery vm:"
-                    Write-Output $outMsg
-                    $lastOutput = $outMsg
-                }                
+                $exit = $true    
+                Write-Output "Custom script execution completed"                            
             }
             else
             {        
                 $exit = $false                       
-                Start-Sleep -Seconds 15 | Out-Null
-                $outMsg = $csStatus.SubStatusList | where Name -EQ 'StdOut' | select -ExpandProperty FormattedMessage | select -ExpandProperty Message
-                $outMsg = [System.Web.HttpUtility]::HtmlDecode($outMsg)
-                $outMsg = $outMsg -replace "\\n","`n"
-                if ( $outMsg -ne $lastOutput)
-                {
-                    Write-Warning "Current output from recovery vm:"
-                    Write-Output $outMsg
-                    $lastOutput = $outMsg
-                }
+                Write-Output "Custom script executing - next update in 15 secs"
+                Start-Sleep -Seconds 15 | Out-Null                
             }          
             
+            $outMsg = $csStatus.SubStatusList | where Name -EQ 'StdOut' | select -ExpandProperty FormattedMessage | select -ExpandProperty Message
+            $outMsg = [System.Web.HttpUtility]::HtmlDecode($outMsg)
+            $outMsg = $outMsg -replace "\\n","`n"
+            if ( $outMsg -ne $lastOutput)
+            {                
+                Write-Output $outMsg
+                $lastOutput = $outMsg
+            }
 
         }until ($exit)
     }
@@ -69,3 +56,5 @@
         Read-Host -Prompt "press any key once done to continue with recreation"
     }
 }
+
+RunRepairDataDiskFromRecoveryVm sebdau-sdp3 RC1605031631

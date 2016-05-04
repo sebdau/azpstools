@@ -87,3 +87,5 @@
         }
     }
 }
+
+RecreateVmFromVhd sebdau-sdp3 RC1605041205

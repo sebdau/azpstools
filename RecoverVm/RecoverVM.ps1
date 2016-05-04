@@ -16,10 +16,11 @@ if ( ! $Sub )
 
 
 $results = AttachOsDiskAsDataDiskToRecoveryVm $ServiceName $VMName
+$recoVM = $results[$results.count -1]
 
-RunRepairDataDiskFromRecoveryVm $ServiceName ($results[$results.count -1].RoleName)
+RunRepairDataDiskFromRecoveryVm $ServiceName ($recoVM.RoleName)
 
-RecreateVmFromVhd $ServiceName $VMName  $true
+RecreateVmFromVhd $ServiceName $recoVM $true
 
 
 
