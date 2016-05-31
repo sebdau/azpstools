@@ -10,7 +10,7 @@ $source = "https://download.sysinternals.com/files/"+$pdZip
 $pdZipDest = $workingFolder+$pdZip
 
 
-Invoke-WebRequest $source -OutFile $pdZipDest
+Invoke-WebRequest $source -OutFile $pdZipDest -UseBasicParsing
 
 
 Add-Type -assembly “system.io.compression.filesystem”
