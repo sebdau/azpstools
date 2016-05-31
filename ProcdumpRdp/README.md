@@ -18,7 +18,10 @@ Its not usefull to apply this script when the network causes issues.
 The script must be executed with elevated previleges.
 
 You can use the custom script exptension to invoke the script:
+
+```PowerShell
 get-azurevm -servicename YOURVMSERVICE -name YOURVM | Set-AzureVMCustomScriptExtension -FileUri 'https://raw.githubusercontent.com/sebdau/azpstools/master/ProcdumpRdp/procdump-TS.ps1' -Run 'procdump-TS.ps1' | Update-AzureVM 
+```
 
 ## Parameters or input
 - NONE
