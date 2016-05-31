@@ -7,6 +7,7 @@ To have microsoft customer support investigate such complex issues it is often u
 - unzip procdump
 - get the process ids of relevant processes
 - instruct procdump to pull full user mode dumps of processes by id and write them to local disk 
+- The dumps are stored on your VMs OS disk: c:\procdump-TS\*.dmp
 
 # Scenarios
 
@@ -29,6 +30,8 @@ To query the execution status you can use your VMs custom script extion view or 
 $vm = get-azurevm -servicename YOURVMSERVICE -name YOURVM
 $vm.ResourceExtensionStatusList[1].ExtensionSettingStatus.SubStatusList.FormattedMessage 
 ```
+
+The dumps are stored on your VMs OS disk: c:\procdump-TS\*.dmp
 
 ## Parameters or input
 - NONE
