@@ -23,6 +23,13 @@ You can use the custom script exptension to invoke the script:
 get-azurevm -servicename YOURVMSERVICE -name YOURVM | Set-AzureVMCustomScriptExtension -FileUri 'https://raw.githubusercontent.com/sebdau/azpstools/master/ProcdumpRdp/procdump-TS.ps1' -Run 'procdump-TS.ps1' | Update-AzureVM 
 ```
 
+To query the execution status you can use your VMs custom script extion view or use the below command:
+
+```PowerShell
+$vm = get-azurevm -servicename YOURVMSERVICE -name YOURVM
+$vm.ResourceExtensionStatusList[1].ExtensionSettingStatus.SubStatusList.FormattedMessage 
+```
+
 ## Parameters or input
 - NONE
 
