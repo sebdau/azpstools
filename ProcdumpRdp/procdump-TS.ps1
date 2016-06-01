@@ -13,7 +13,7 @@ $pdZipDest = $workingFolder+$pdZip
 Invoke-WebRequest $source -OutFile $pdZipDest -UseBasicParsing
 
 
-Add-Type -assembly “system.io.compression.filesystem”
+[void][Reflection.Assembly]::LoadWithPartialName("system.io.compression.filesystem")
 [io.compression.zipfile]::ExtractToDirectory($pdZipDest, $workingFolder)
 
 
