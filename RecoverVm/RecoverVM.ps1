@@ -20,7 +20,7 @@ $recoVM = $results[$results.count -1]
 
 RunRepairDataDiskFromRecoveryVm $ServiceName ($recoVM.RoleName)
 
-RecreateVmFromVhd $ServiceName $recoVM $true
+RecreateVmFromVhd $ServiceName ($recoVM.RoleName) $true
 
 
 
