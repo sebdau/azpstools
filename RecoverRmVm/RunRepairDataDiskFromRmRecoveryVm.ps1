@@ -9,7 +9,7 @@
     $VM = Get-AzureRmVM -ResourceGroupName $RecourceGroup -Name $RecoveryVmName
     
     #see if this vm already has the csext enabled... 
-    $ext = get-azurermvm sebdauxio-rg sebdauxio | select  -ExpandProperty Extensions | where VirtualMachineExtensionType -EQ 'CustomScriptExtension'
+    $ext = get-AzureRmVM $RecourceGroup $RecoveryVmName | select  -ExpandProperty Extensions | where VirtualMachineExtensionType -EQ 'CustomScriptExtension'
     if ( $ext )
     {
         Remove-AzureRmVMCustomScriptExtension -ResourceGroupName $RecourceGroup -VMName $RecoveryVmName -Name $ext.Name -Force
